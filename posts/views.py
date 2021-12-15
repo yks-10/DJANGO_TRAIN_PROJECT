@@ -1,20 +1,24 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
-from .models import Post 
-from .serializers import PostSerializer, UserSerializer
+from .models import *
+from .serializers import PostSerializer, UserSerializer, BSerializer
 from .permissions import IsAuthorOrReadOnly
 from rest_framework import generics, permissions
 # Create your views here.
 
-class PostList(generics.ListCreateAPIView):
+class TrainList(generics.ListCreateAPIView):
 	#permission_classes = (permissions.IsAuthenticated,)
-	queryset = Post.objects.all()
-	serializer_class= PostSerializer  
+	queryset = T.objects.all()
+	serializer_class= PostSerializer
+
+class TicketBooking(generics.ListCreateAPIView):
+	queryset = B.objects.all()
+	serializer_class = BSerializer
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 	permission_classes = (IsAuthorOrReadOnly,)
-	queryset = Post.objects.all()
+	queryset = T.objects.all()
 	serializer_class = PostSerializer
 
 
